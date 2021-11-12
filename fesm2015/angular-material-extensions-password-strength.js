@@ -128,8 +128,9 @@ class MatPasswordStrengthComponent {
         this.setRulesAndValidators();
     }
     ngOnChanges(changes) {
+        console.log('changes', changes);
         if ((changes.externalError && changes.externalError.firstChange) ||
-            changes.password.isFirstChange()) {
+            changes.pass.isFirstChange()) {
             return;
         }
         else if (changes.externalError && changes.externalError.currentValue) {
