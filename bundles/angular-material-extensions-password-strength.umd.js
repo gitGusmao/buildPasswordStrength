@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('@angular/animations'), require('@angular/common'), require('@angular/material/progress-bar'), require('@angular/material/core'), require('@angular/material/card'), require('@angular/material/icon')) :
-    typeof define === 'function' && define.amd ? define('@angular-material-extensions/password-strength', ['exports', '@angular/core', '@angular/forms', '@angular/animations', '@angular/common', '@angular/material/progress-bar', '@angular/material/core', '@angular/material/card', '@angular/material/icon'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global['angular-material-extensions'] = global['angular-material-extensions'] || {}, global['angular-material-extensions']['password-strength'] = {}), global.ng.core, global.ng.forms, global.ng.animations, global.ng.common, global.ng.material.progressBar, global.ng.material.core, global.ng.material.card, global.ng.material.icon));
-}(this, (function (exports, core, forms, animations, common, progressBar, core$1, card, icon) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/material/icon'), require('@angular/forms'), require('@angular/material/progress-bar'), require('@angular/animations'), require('@angular/material/card'), require('@angular/common')) :
+    typeof define === 'function' && define.amd ? define('@angular-material-extensions/password-strength', ['exports', '@angular/core', '@angular/material/core', '@angular/material/icon', '@angular/forms', '@angular/material/progress-bar', '@angular/animations', '@angular/material/card', '@angular/common'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global['angular-material-extensions'] = global['angular-material-extensions'] || {}, global['angular-material-extensions']['password-strength'] = {}), global.ng.core, global.ng.material.core, global.ng.material.icon, global.ng.forms, global.ng.material.progressBar, global.ng.animations, global.ng.material.card, global.ng.common));
+}(this, (function (exports, i0, i1, i2, forms, i1$1, animations, i1$2, i2$1) { 'use strict';
 
     (function (Colors) {
         Colors["primary"] = "primary";
@@ -32,17 +32,34 @@
         });
         return MatPassToggleVisibilityComponent;
     }());
-    MatPassToggleVisibilityComponent.decorators = [
-        { type: core.Component, args: [{
-                    selector: 'mat-pass-toggle-visibility',
-                    template: "<button (click)=\"isVisible = !isVisible\"\r\n        class=\"mat-icon-button cdk-focused cdk-mouse-focused\"\r\n        mat-icon-button matRipple\r\n        matRippleCentered=\"true\"\r\n        type=\"button\">\r\n  <mat-icon>{{isVisible ? 'visibility' : 'visibility_off' }}</mat-icon>\r\n</button>\r\n\r\n",
-                    encapsulation: core.ViewEncapsulation.None,
-                    styles: [""]
-                },] }
-    ];
-    MatPassToggleVisibilityComponent.propDecorators = {
-        isVisible: [{ type: core.Input }]
-    };
+    MatPassToggleVisibilityComponent.ɵfac = function MatPassToggleVisibilityComponent_Factory(t) { return new (t || MatPassToggleVisibilityComponent)(); };
+    MatPassToggleVisibilityComponent.ɵcmp = i0.ɵɵdefineComponent({ type: MatPassToggleVisibilityComponent, selectors: [["mat-pass-toggle-visibility"]], inputs: { isVisible: "isVisible" }, decls: 3, vars: 1, consts: [["mat-icon-button", "", "matRipple", "", "matRippleCentered", "true", "type", "button", 1, "mat-icon-button", "cdk-focused", "cdk-mouse-focused", 3, "click"]], template: function MatPassToggleVisibilityComponent_Template(rf, ctx) {
+            if (rf & 1) {
+                i0.ɵɵelementStart(0, "button", 0);
+                i0.ɵɵlistener("click", function MatPassToggleVisibilityComponent_Template_button_click_0_listener() { return ctx.isVisible = !ctx.isVisible; });
+                i0.ɵɵelementStart(1, "mat-icon");
+                i0.ɵɵtext(2);
+                i0.ɵɵelementEnd();
+                i0.ɵɵelementEnd();
+            }
+            if (rf & 2) {
+                i0.ɵɵadvance(2);
+                i0.ɵɵtextInterpolate(ctx.isVisible ? "visibility" : "visibility_off");
+            }
+        }, directives: [i1.MatRipple, i2.MatIcon], styles: [""], encapsulation: 2 });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(MatPassToggleVisibilityComponent, [{
+                type: i0.Component,
+                args: [{
+                        selector: 'mat-pass-toggle-visibility',
+                        templateUrl: './mat-pass-toggle-visibility.component.html',
+                        styleUrls: ['./mat-pass-toggle-visibility.component.scss'],
+                        encapsulation: i0.ViewEncapsulation.None
+                    }]
+            }], null, { isVisible: [{
+                    type: i0.Input
+                }] });
+    })();
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -406,7 +423,7 @@
             this.max = 30;
             this.warnThreshold = 21;
             this.accentThreshold = 81;
-            this.onStrengthChanged = new core.EventEmitter();
+            this.onStrengthChanged = new i0.EventEmitter();
             this.criteriaMap = new Map();
             // TO ACCESS VIA CONTENT CHILD
             this.passwordFormControl = new forms.FormControl();
@@ -442,7 +459,6 @@
             this.setRulesAndValidators();
         };
         MatPasswordStrengthComponent.prototype.ngOnChanges = function (changes) {
-            console.log('changes', changes);
             if ((changes.externalError && changes.externalError.firstChange) ||
                 changes.pass.isFirstChange()) {
                 return;
@@ -450,6 +466,10 @@
             else if (changes.externalError && changes.externalError.currentValue) {
                 this._color = exports.Colors.warn;
                 return;
+            }
+            else if (changes.pass.previousValue === changes.pass.currentValue &&
+                !changes.pass.firstChange) {
+                this.calculatePasswordStrength();
             }
             else {
                 this.pass && this.pass.length > 0
@@ -587,37 +607,66 @@
         };
         return MatPasswordStrengthComponent;
     }());
-    MatPasswordStrengthComponent.decorators = [
-        { type: core.Component, args: [{
-                    selector: "mat-password-strength",
-                    exportAs: "matPasswordStrength",
-                    template: "<mat-progress-bar [color]=\"color\"\r\n                  [value]=\"strength\"\r\n                  mode=\"determinate\">\r\n</mat-progress-bar>\r\n",
-                    changeDetection: core.ChangeDetectionStrategy.OnPush,
-                    providers: [
-                        {
-                            provide: forms.NG_VALUE_ACCESSOR,
-                            useExisting: core.forwardRef(function () { return MatPasswordStrengthComponent; }),
-                            multi: true,
-                        },
-                    ],
-                    styles: [".green :host::ng-deep .mat-progress-bar.mat-primary .mat-progress-bar-fill:after{background-color:#43a047}"]
-                },] }
-    ];
-    MatPasswordStrengthComponent.propDecorators = {
-        pass: [{ type: core.Input }],
-        externalError: [{ type: core.Input }],
-        enableLengthRule: [{ type: core.Input }],
-        enableLowerCaseLetterRule: [{ type: core.Input }],
-        enableUpperCaseLetterRule: [{ type: core.Input }],
-        enableDigitRule: [{ type: core.Input }],
-        enableSpecialCharRule: [{ type: core.Input }],
-        min: [{ type: core.Input }],
-        max: [{ type: core.Input }],
-        customValidator: [{ type: core.Input }],
-        warnThreshold: [{ type: core.Input }],
-        accentThreshold: [{ type: core.Input }],
-        onStrengthChanged: [{ type: core.Output }]
-    };
+    MatPasswordStrengthComponent.ɵfac = function MatPasswordStrengthComponent_Factory(t) { return new (t || MatPasswordStrengthComponent)(); };
+    MatPasswordStrengthComponent.ɵcmp = i0.ɵɵdefineComponent({ type: MatPasswordStrengthComponent, selectors: [["mat-password-strength"]], inputs: { pass: "pass", externalError: "externalError", enableLengthRule: "enableLengthRule", enableLowerCaseLetterRule: "enableLowerCaseLetterRule", enableUpperCaseLetterRule: "enableUpperCaseLetterRule", enableDigitRule: "enableDigitRule", enableSpecialCharRule: "enableSpecialCharRule", min: "min", max: "max", customValidator: "customValidator", warnThreshold: "warnThreshold", accentThreshold: "accentThreshold" }, outputs: { onStrengthChanged: "onStrengthChanged" }, exportAs: ["matPasswordStrength"], features: [i0.ɵɵProvidersFeature([
+                {
+                    provide: forms.NG_VALUE_ACCESSOR,
+                    useExisting: i0.forwardRef(function () { return MatPasswordStrengthComponent; }),
+                    multi: true,
+                },
+            ]), i0.ɵɵNgOnChangesFeature], decls: 1, vars: 2, consts: [["mode", "determinate", 3, "color", "value"]], template: function MatPasswordStrengthComponent_Template(rf, ctx) {
+            if (rf & 1) {
+                i0.ɵɵelement(0, "mat-progress-bar", 0);
+            }
+            if (rf & 2) {
+                i0.ɵɵproperty("color", ctx.color)("value", ctx.strength);
+            }
+        }, directives: [i1$1.MatProgressBar], styles: [".green   [_nghost-%COMP%]  .mat-progress-bar.mat-primary .mat-progress-bar-fill:after{background-color:#43a047}"], changeDetection: 0 });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(MatPasswordStrengthComponent, [{
+                type: i0.Component,
+                args: [{
+                        selector: "mat-password-strength",
+                        exportAs: "matPasswordStrength",
+                        templateUrl: "./mat-password-strength.component.html",
+                        styleUrls: ["./mat-password-strength.component.scss"],
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                        providers: [
+                            {
+                                provide: forms.NG_VALUE_ACCESSOR,
+                                useExisting: i0.forwardRef(function () { return MatPasswordStrengthComponent; }),
+                                multi: true,
+                            },
+                        ],
+                    }]
+            }], null, { pass: [{
+                    type: i0.Input
+                }], externalError: [{
+                    type: i0.Input
+                }], enableLengthRule: [{
+                    type: i0.Input
+                }], enableLowerCaseLetterRule: [{
+                    type: i0.Input
+                }], enableUpperCaseLetterRule: [{
+                    type: i0.Input
+                }], enableDigitRule: [{
+                    type: i0.Input
+                }], enableSpecialCharRule: [{
+                    type: i0.Input
+                }], min: [{
+                    type: i0.Input
+                }], max: [{
+                    type: i0.Input
+                }], customValidator: [{
+                    type: i0.Input
+                }], warnThreshold: [{
+                    type: i0.Input
+                }], accentThreshold: [{
+                    type: i0.Input
+                }], onStrengthChanged: [{
+                    type: i0.Output
+                }] });
+    })();
 
     function flipIn(timing, rotateX, rotateY) {
         var params = { timing: timing, delay: 0, rotateX: rotateX, rotateY: rotateY };
@@ -665,6 +714,380 @@
         animations.style({ transform: 'translate3d(0, 0, 0)', offset: 1 }),
     ])), { params: { timing: 1, delay: 0 } });
 
+    function MatPasswordStrengthInfoComponent_div_2_div_1_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelement(0, "div");
+        }
+        if (rf & 2) {
+            i0.ɵɵproperty("@flipY", undefined);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_2_ng_template_2_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "mat-icon", 5);
+            i0.ɵɵtext(1);
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var ctx_r9 = i0.ɵɵnextContext(2);
+            i0.ɵɵproperty("@positiveState", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵtextInterpolate(ctx_r9.matIconDone);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_2_ng_template_4_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "mat-icon", 6);
+            i0.ɵɵtext(1);
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var ctx_r11 = i0.ɵɵnextContext(2);
+            i0.ɵɵproperty("@negativeState", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵtextInterpolate(ctx_r11.matIconError);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_2_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "div", 1);
+            i0.ɵɵtemplate(1, MatPasswordStrengthInfoComponent_div_2_div_1_Template, 1, 1, "div", 2);
+            i0.ɵɵtemplate(2, MatPasswordStrengthInfoComponent_div_2_ng_template_2_Template, 2, 2, "ng-template", null, 3, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵtemplate(4, MatPasswordStrengthInfoComponent_div_2_ng_template_4_Template, 2, 2, "ng-template", null, 4, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵelementStart(6, "span");
+            i0.ɵɵtext(7);
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var _r8 = i0.ɵɵreference(3);
+            var _r10 = i0.ɵɵreference(5);
+            var ctx_r0 = i0.ɵɵnextContext();
+            i0.ɵɵproperty("@items", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx_r0.passComponent.containAtLeastOneLowerCaseLetter)("ngIfThen", _r8)("ngIfElse", _r10);
+            i0.ɵɵadvance(6);
+            i0.ɵɵtextInterpolate(ctx_r0.lowerCaseCriteriaMsg);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_3_div_1_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelement(0, "div");
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_3_ng_template_2_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "mat-icon", 5);
+            i0.ɵɵtext(1);
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var ctx_r14 = i0.ɵɵnextContext(2);
+            i0.ɵɵproperty("@positiveState", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵtextInterpolate(ctx_r14.matIconDone);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_3_ng_template_4_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "mat-icon", 6);
+            i0.ɵɵtext(1);
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var ctx_r16 = i0.ɵɵnextContext(2);
+            i0.ɵɵproperty("@negativeState", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵtextInterpolate(ctx_r16.matIconError);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_3_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "div", 1);
+            i0.ɵɵtemplate(1, MatPasswordStrengthInfoComponent_div_3_div_1_Template, 1, 0, "div", 2);
+            i0.ɵɵtemplate(2, MatPasswordStrengthInfoComponent_div_3_ng_template_2_Template, 2, 2, "ng-template", null, 3, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵtemplate(4, MatPasswordStrengthInfoComponent_div_3_ng_template_4_Template, 2, 2, "ng-template", null, 4, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵelementStart(6, "span");
+            i0.ɵɵtext(7);
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var _r13 = i0.ɵɵreference(3);
+            var _r15 = i0.ɵɵreference(5);
+            var ctx_r1 = i0.ɵɵnextContext();
+            i0.ɵɵproperty("@items", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx_r1.passComponent.containAtLeastOneUpperCaseLetter)("ngIfThen", _r13)("ngIfElse", _r15);
+            i0.ɵɵadvance(6);
+            i0.ɵɵtextInterpolate(ctx_r1.upperCaseCriteriaMsg);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_4_div_1_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelement(0, "div");
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_4_ng_template_2_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "mat-icon", 5);
+            i0.ɵɵtext(1);
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var ctx_r19 = i0.ɵɵnextContext(2);
+            i0.ɵɵproperty("@positiveState", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵtextInterpolate(ctx_r19.matIconDone);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_4_ng_template_4_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "mat-icon", 6);
+            i0.ɵɵtext(1);
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var ctx_r21 = i0.ɵɵnextContext(2);
+            i0.ɵɵproperty("@negativeState", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵtextInterpolate(ctx_r21.matIconError);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_4_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "div", 1);
+            i0.ɵɵtemplate(1, MatPasswordStrengthInfoComponent_div_4_div_1_Template, 1, 0, "div", 2);
+            i0.ɵɵtemplate(2, MatPasswordStrengthInfoComponent_div_4_ng_template_2_Template, 2, 2, "ng-template", null, 3, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵtemplate(4, MatPasswordStrengthInfoComponent_div_4_ng_template_4_Template, 2, 2, "ng-template", null, 4, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵelementStart(6, "span");
+            i0.ɵɵtext(7);
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var _r18 = i0.ɵɵreference(3);
+            var _r20 = i0.ɵɵreference(5);
+            var ctx_r2 = i0.ɵɵnextContext();
+            i0.ɵɵproperty("@items", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx_r2.passComponent.containAtLeastOneDigit)("ngIfThen", _r18)("ngIfElse", _r20);
+            i0.ɵɵadvance(6);
+            i0.ɵɵtextInterpolate(ctx_r2.digitsCriteriaMsg);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_5_div_1_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelement(0, "div");
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_5_ng_template_2_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "mat-icon", 5);
+            i0.ɵɵtext(1);
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var ctx_r24 = i0.ɵɵnextContext(2);
+            i0.ɵɵproperty("@positiveState", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵtextInterpolate(ctx_r24.matIconDone);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_5_ng_template_4_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "mat-icon", 6);
+            i0.ɵɵtext(1);
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var ctx_r26 = i0.ɵɵnextContext(2);
+            i0.ɵɵproperty("@negativeState", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵtextInterpolate(ctx_r26.matIconError);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_5_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "div", 1);
+            i0.ɵɵtemplate(1, MatPasswordStrengthInfoComponent_div_5_div_1_Template, 1, 0, "div", 2);
+            i0.ɵɵtemplate(2, MatPasswordStrengthInfoComponent_div_5_ng_template_2_Template, 2, 2, "ng-template", null, 3, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵtemplate(4, MatPasswordStrengthInfoComponent_div_5_ng_template_4_Template, 2, 2, "ng-template", null, 4, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵelementStart(6, "span");
+            i0.ɵɵtext(7);
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var _r23 = i0.ɵɵreference(3);
+            var _r25 = i0.ɵɵreference(5);
+            var ctx_r3 = i0.ɵɵnextContext();
+            i0.ɵɵproperty("@items", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx_r3.passComponent.containAtLeastOneSpecialChar)("ngIfThen", _r23)("ngIfElse", _r25);
+            i0.ɵɵadvance(6);
+            i0.ɵɵtextInterpolate(ctx_r3.specialCharsCriteriaMsg);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_6_div_1_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelement(0, "div");
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_6_ng_template_2_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "mat-icon", 5);
+            i0.ɵɵtext(1);
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var ctx_r29 = i0.ɵɵnextContext(2);
+            i0.ɵɵproperty("@positiveState", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵtextInterpolate(ctx_r29.matIconDone);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_6_ng_template_4_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "mat-icon", 6);
+            i0.ɵɵtext(1);
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var ctx_r31 = i0.ɵɵnextContext(2);
+            i0.ɵɵproperty("@negativeState", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵtextInterpolate(ctx_r31.matIconError);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_6_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "div", 1);
+            i0.ɵɵtemplate(1, MatPasswordStrengthInfoComponent_div_6_div_1_Template, 1, 0, "div", 2);
+            i0.ɵɵtemplate(2, MatPasswordStrengthInfoComponent_div_6_ng_template_2_Template, 2, 2, "ng-template", null, 3, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵtemplate(4, MatPasswordStrengthInfoComponent_div_6_ng_template_4_Template, 2, 2, "ng-template", null, 4, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵelementStart(6, "span");
+            i0.ɵɵtext(7);
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var _r28 = i0.ɵɵreference(3);
+            var _r30 = i0.ɵɵreference(5);
+            var ctx_r4 = i0.ɵɵnextContext();
+            i0.ɵɵproperty("@items", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx_r4.passComponent.containAtLeastMinChars)("ngIfThen", _r28)("ngIfElse", _r30);
+            i0.ɵɵadvance(6);
+            i0.ɵɵtextInterpolate(ctx_r4.minCharsCriteriaMsg);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_7_div_1_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelement(0, "div");
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_7_ng_template_2_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "mat-icon", 5);
+            i0.ɵɵtext(1);
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var ctx_r34 = i0.ɵɵnextContext(2);
+            i0.ɵɵproperty("@positiveState", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵtextInterpolate(ctx_r34.matIconDone);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_7_ng_template_4_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "mat-icon", 6);
+            i0.ɵɵtext(1);
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var ctx_r36 = i0.ɵɵnextContext(2);
+            i0.ɵɵproperty("@negativeState", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵtextInterpolate(ctx_r36.matIconError);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_7_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "div", 1);
+            i0.ɵɵtemplate(1, MatPasswordStrengthInfoComponent_div_7_div_1_Template, 1, 0, "div", 2);
+            i0.ɵɵtemplate(2, MatPasswordStrengthInfoComponent_div_7_ng_template_2_Template, 2, 2, "ng-template", null, 3, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵtemplate(4, MatPasswordStrengthInfoComponent_div_7_ng_template_4_Template, 2, 2, "ng-template", null, 4, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵelementStart(6, "span");
+            i0.ɵɵtext(7);
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var _r33 = i0.ɵɵreference(3);
+            var _r35 = i0.ɵɵreference(5);
+            var ctx_r5 = i0.ɵɵnextContext();
+            i0.ɵɵproperty("@items", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx_r5.passComponent.containAtCustomChars)("ngIfThen", _r33)("ngIfElse", _r35);
+            i0.ɵɵadvance(6);
+            i0.ɵɵtextInterpolate(ctx_r5.customCharsCriteriaMsg);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_8_div_1_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelement(0, "div");
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_8_ng_template_2_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "mat-icon", 5);
+            i0.ɵɵtext(1);
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var ctx_r39 = i0.ɵɵnextContext(2);
+            i0.ɵɵproperty("@positiveState", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵtextInterpolate(ctx_r39.matIconDone);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_8_ng_template_4_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "mat-icon", 6);
+            i0.ɵɵtext(1);
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var ctx_r41 = i0.ɵɵnextContext(2);
+            i0.ɵɵproperty("@negativeState", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵtextInterpolate(ctx_r41.matIconError);
+        }
+    }
+    function MatPasswordStrengthInfoComponent_div_8_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "div", 1);
+            i0.ɵɵtemplate(1, MatPasswordStrengthInfoComponent_div_8_div_1_Template, 1, 0, "div", 2);
+            i0.ɵɵtemplate(2, MatPasswordStrengthInfoComponent_div_8_ng_template_2_Template, 2, 2, "ng-template", null, 3, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵtemplate(4, MatPasswordStrengthInfoComponent_div_8_ng_template_4_Template, 2, 2, "ng-template", null, 4, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵelementStart(6, "span");
+            i0.ɵɵtext(7);
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var _r38 = i0.ɵɵreference(3);
+            var _r40 = i0.ɵɵreference(5);
+            var ctx_r6 = i0.ɵɵnextContext();
+            i0.ɵɵproperty("@items", undefined);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx_r6.passComponent.strength === 100)("ngIfThen", _r38)("ngIfElse", _r40);
+            i0.ɵɵadvance(6);
+            i0.ɵɵtextInterpolate1("Password's strength = ", ctx_r6.passComponent.strength, " %100");
+        }
+    }
     var MatPasswordStrengthInfoComponent = /** @class */ (function () {
         function MatPasswordStrengthInfoComponent() {
             this.enableScoreInfo = false;
@@ -683,78 +1106,173 @@
         };
         return MatPasswordStrengthInfoComponent;
     }());
-    MatPasswordStrengthInfoComponent.decorators = [
-        { type: core.Component, args: [{
-                    selector: 'mat-password-strength-info',
-                    exportAs: 'matPasswordStrengthInfo',
-                    template: "<mat-card @list>\r\n  <mat-card-content>\r\n    <div *ngIf=\"passComponent.enableLowerCaseLetterRule\" @items class=\"info-row\">\r\n      <div *ngIf=\"passComponent.containAtLeastOneLowerCaseLetter; then done else error\" @flipY>\r\n      </div>\r\n      <ng-template #done>\r\n        <mat-icon @positiveState color=\"primary\">{{matIconDone}}</mat-icon>\r\n      </ng-template>\r\n      <ng-template #error>\r\n        <mat-icon @negativeState color=\"warn\">{{matIconError}}</mat-icon>\r\n      </ng-template>\r\n      <span>{{lowerCaseCriteriaMsg}}</span>\r\n    </div>\r\n\r\n    <div *ngIf=\"passComponent.enableUpperCaseLetterRule\" @items class=\"info-row\">\r\n      <div *ngIf=\"passComponent.containAtLeastOneUpperCaseLetter; then done else error\">\r\n      </div>\r\n      <ng-template #done>\r\n        <mat-icon @positiveState color=\"primary\">{{matIconDone}}</mat-icon>\r\n      </ng-template>\r\n      <ng-template #error>\r\n        <mat-icon @negativeState color=\"warn\">{{matIconError}}</mat-icon>\r\n      </ng-template>\r\n      <span>{{upperCaseCriteriaMsg}}</span>\r\n    </div>\r\n\r\n    <div *ngIf=\"passComponent.enableDigitRule\" @items class=\"info-row\">\r\n      <div *ngIf=\"passComponent.containAtLeastOneDigit; then done else error\">\r\n      </div>\r\n      <ng-template #done>\r\n        <mat-icon @positiveState color=\"primary\">{{matIconDone}}</mat-icon>\r\n      </ng-template>\r\n      <ng-template #error>\r\n        <mat-icon @negativeState color=\"warn\">{{matIconError}}</mat-icon>\r\n      </ng-template>\r\n      <span>{{digitsCriteriaMsg}}</span>\r\n    </div>\r\n\r\n    <div *ngIf=\"passComponent.enableSpecialCharRule\" @items class=\"info-row\">\r\n      <div *ngIf=\"passComponent.containAtLeastOneSpecialChar; then done else error\">\r\n      </div>\r\n      <ng-template #done>\r\n        <mat-icon @positiveState color=\"primary\">{{matIconDone}}</mat-icon>\r\n      </ng-template>\r\n      <ng-template #error>\r\n        <mat-icon @negativeState color=\"warn\">{{matIconError}}</mat-icon>\r\n      </ng-template>\r\n      <span>{{specialCharsCriteriaMsg}}</span>\r\n    </div>\r\n\r\n    <div *ngIf=\"passComponent.enableLengthRule\" @items class=\"info-row\">\r\n      <div *ngIf=\"passComponent.containAtLeastMinChars; then done else error\">\r\n      </div>\r\n      <ng-template #done>\r\n        <mat-icon @positiveState color=\"primary\">{{matIconDone}}</mat-icon>\r\n      </ng-template>\r\n      <ng-template #error>\r\n        <mat-icon @negativeState color=\"warn\">{{matIconError}}</mat-icon>\r\n      </ng-template>\r\n      <span>{{minCharsCriteriaMsg}}</span>\r\n    </div>\r\n\r\n    <div *ngIf=\"passComponent.customValidator\" @items class=\"info-row\">\r\n      <div *ngIf=\"passComponent.containAtCustomChars; then done else error\">\r\n      </div>\r\n      <ng-template #done>\r\n        <mat-icon @positiveState color=\"primary\">{{matIconDone}}</mat-icon>\r\n      </ng-template>\r\n      <ng-template #error>\r\n        <mat-icon @negativeState color=\"warn\">{{matIconError}}</mat-icon>\r\n      </ng-template>\r\n      <span>{{customCharsCriteriaMsg}}</span>\r\n    </div>\r\n\r\n    <div *ngIf=\"enableScoreInfo\" @items class=\"info-row\">\r\n      <div *ngIf=\"passComponent.strength === 100; then done else error\">\r\n      </div>\r\n      <ng-template #done>\r\n        <mat-icon @positiveState color=\"primary\">{{matIconDone}}</mat-icon>\r\n      </ng-template>\r\n      <ng-template #error>\r\n        <mat-icon @negativeState color=\"warn\">{{matIconError}}</mat-icon>\r\n      </ng-template>\r\n      <span>Password's strength = {{passComponent.strength}} %100</span>\r\n    </div>\r\n\r\n  </mat-card-content>\r\n</mat-card>",
-                    animations: [
-                        // nice stagger effect when showing existing elements
-                        animations.trigger('list', [
-                            animations.transition(':enter', [
-                                // child animation selector + stagger
-                                animations.query('@items', animations.stagger(300, animations.animateChild()))
+    MatPasswordStrengthInfoComponent.ɵfac = function MatPasswordStrengthInfoComponent_Factory(t) { return new (t || MatPasswordStrengthInfoComponent)(); };
+    MatPasswordStrengthInfoComponent.ɵcmp = i0.ɵɵdefineComponent({ type: MatPasswordStrengthInfoComponent, selectors: [["mat-password-strength-info"]], inputs: { passComponent: "passComponent", enableScoreInfo: "enableScoreInfo", lowerCaseCriteriaMsg: "lowerCaseCriteriaMsg", upperCaseCriteriaMsg: "upperCaseCriteriaMsg", digitsCriteriaMsg: "digitsCriteriaMsg", specialCharsCriteriaMsg: "specialCharsCriteriaMsg", customCharsCriteriaMsg: "customCharsCriteriaMsg", minCharsCriteriaMsg: "minCharsCriteriaMsg", matIconDone: "matIconDone", matIconError: "matIconError" }, exportAs: ["matPasswordStrengthInfo"], decls: 9, vars: 8, consts: [["class", "info-row", 4, "ngIf"], [1, "info-row"], [4, "ngIf", "ngIfThen", "ngIfElse"], ["done", ""], ["error", ""], ["color", "primary"], ["color", "warn"]], template: function MatPasswordStrengthInfoComponent_Template(rf, ctx) {
+            if (rf & 1) {
+                i0.ɵɵelementStart(0, "mat-card");
+                i0.ɵɵelementStart(1, "mat-card-content");
+                i0.ɵɵtemplate(2, MatPasswordStrengthInfoComponent_div_2_Template, 8, 5, "div", 0);
+                i0.ɵɵtemplate(3, MatPasswordStrengthInfoComponent_div_3_Template, 8, 5, "div", 0);
+                i0.ɵɵtemplate(4, MatPasswordStrengthInfoComponent_div_4_Template, 8, 5, "div", 0);
+                i0.ɵɵtemplate(5, MatPasswordStrengthInfoComponent_div_5_Template, 8, 5, "div", 0);
+                i0.ɵɵtemplate(6, MatPasswordStrengthInfoComponent_div_6_Template, 8, 5, "div", 0);
+                i0.ɵɵtemplate(7, MatPasswordStrengthInfoComponent_div_7_Template, 8, 5, "div", 0);
+                i0.ɵɵtemplate(8, MatPasswordStrengthInfoComponent_div_8_Template, 8, 5, "div", 0);
+                i0.ɵɵelementEnd();
+                i0.ɵɵelementEnd();
+            }
+            if (rf & 2) {
+                i0.ɵɵproperty("@list", undefined);
+                i0.ɵɵadvance(2);
+                i0.ɵɵproperty("ngIf", ctx.passComponent.enableLowerCaseLetterRule);
+                i0.ɵɵadvance(1);
+                i0.ɵɵproperty("ngIf", ctx.passComponent.enableUpperCaseLetterRule);
+                i0.ɵɵadvance(1);
+                i0.ɵɵproperty("ngIf", ctx.passComponent.enableDigitRule);
+                i0.ɵɵadvance(1);
+                i0.ɵɵproperty("ngIf", ctx.passComponent.enableSpecialCharRule);
+                i0.ɵɵadvance(1);
+                i0.ɵɵproperty("ngIf", ctx.passComponent.enableLengthRule);
+                i0.ɵɵadvance(1);
+                i0.ɵɵproperty("ngIf", ctx.passComponent.customValidator);
+                i0.ɵɵadvance(1);
+                i0.ɵɵproperty("ngIf", ctx.enableScoreInfo);
+            }
+        }, directives: [i1$2.MatCard, i1$2.MatCardContent, i2$1.NgIf, i2.MatIcon], styles: ["mat-card[_ngcontent-%COMP%]{flex:1 1 0;flex-direction:row;place-content:stretch center}mat-card[_ngcontent-%COMP%], mat-card[_ngcontent-%COMP%]   mat-card-content[_ngcontent-%COMP%]{align-items:stretch;box-sizing:border-box;display:flex}mat-card[_ngcontent-%COMP%]   mat-card-content[_ngcontent-%COMP%]{flex-direction:column;max-width:100%;place-content:stretch flex-start}mat-card[_ngcontent-%COMP%]   mat-card-content[_ngcontent-%COMP%]   mat-icon[_ngcontent-%COMP%]{margin-right:10px}mat-card[_ngcontent-%COMP%]   mat-card-content[_ngcontent-%COMP%]   .info-row[_ngcontent-%COMP%]{align-items:center;box-sizing:border-box;display:flex;flex-direction:row}"], data: { animation: [
+                // nice stagger effect when showing existing elements
+                animations.trigger('list', [
+                    animations.transition(':enter', [
+                        // child animation selector + stagger
+                        animations.query('@items', animations.stagger(300, animations.animateChild()))
+                    ]),
+                ]),
+                animations.trigger('items', [
+                    // cubic-bezier for a tiny bouncing feel
+                    animations.transition(':enter', [
+                        animations.style({ transform: 'scale(0.5)', opacity: 0 }),
+                        animations.animate('1s cubic-bezier(.8,-0.6,0.2,1.5)', animations.style({ transform: 'scale(1)', opacity: 1 }))
+                    ]),
+                    animations.transition(':leave', [
+                        animations.style({ transform: 'scale(1)', opacity: 1, height: '*' }),
+                        animations.animate('1s cubic-bezier(.8,-0.6,0.2,1.5)', animations.style({ transform: 'scale(0.5)', opacity: 0, height: '0px', margin: '0px' }))
+                    ]),
+                ]),
+                animations.trigger('positiveState', [
+                    animations.transition(':enter', [
+                        animations.style({ 'backface-visibility': 'visible' }),
+                        animations.animate('{{ timing }}s {{ delay }}s ease-in', animations.keyframes([
+                            animations.style({
+                                opacity: 0,
+                                transform: 'perspective(400px) rotate3d({{ rotateX }}, {{ rotateY }}, 0, 90deg)',
+                                offset: 0,
+                            }),
+                            animations.style({
+                                opacity: 1,
+                                transform: 'perspective(400px) rotate3d({{ rotateX }}, {{ rotateY }}, 0, -20deg)',
+                                offset: 0.4,
+                            }),
+                            animations.style({
+                                transform: 'perspective(400px) rotate3d({{ rotateX }}, {{ rotateY }}, 0, 10deg)',
+                                offset: 0.6,
+                            }),
+                            animations.style({
+                                transform: 'perspective(400px) rotate3d({{ rotateX }}, {{ rotateY }}, 0, -5deg)',
+                                offset: 0.8,
+                            }),
+                            animations.style({
+                                transform: 'perspective(400px) rotate3d(0, 0, 0, 0)',
+                                offset: 1,
+                            }),
+                        ])),
+                    ], { params: { timing: 1, delay: 0, rotateX: 1, rotateY: 0 } }),
+                ]),
+                animations.trigger('negativeState', [
+                    animations.transition(':enter', animations.useAnimation(shake)),
+                ]),
+            ] } });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(MatPasswordStrengthInfoComponent, [{
+                type: i0.Component,
+                args: [{
+                        selector: 'mat-password-strength-info',
+                        exportAs: 'matPasswordStrengthInfo',
+                        templateUrl: './mat-password-strength-info.component.html',
+                        styleUrls: ['./mat-password-strength-info.component.scss'],
+                        animations: [
+                            // nice stagger effect when showing existing elements
+                            animations.trigger('list', [
+                                animations.transition(':enter', [
+                                    // child animation selector + stagger
+                                    animations.query('@items', animations.stagger(300, animations.animateChild()))
+                                ]),
                             ]),
-                        ]),
-                        animations.trigger('items', [
-                            // cubic-bezier for a tiny bouncing feel
-                            animations.transition(':enter', [
-                                animations.style({ transform: 'scale(0.5)', opacity: 0 }),
-                                animations.animate('1s cubic-bezier(.8,-0.6,0.2,1.5)', animations.style({ transform: 'scale(1)', opacity: 1 }))
+                            animations.trigger('items', [
+                                // cubic-bezier for a tiny bouncing feel
+                                animations.transition(':enter', [
+                                    animations.style({ transform: 'scale(0.5)', opacity: 0 }),
+                                    animations.animate('1s cubic-bezier(.8,-0.6,0.2,1.5)', animations.style({ transform: 'scale(1)', opacity: 1 }))
+                                ]),
+                                animations.transition(':leave', [
+                                    animations.style({ transform: 'scale(1)', opacity: 1, height: '*' }),
+                                    animations.animate('1s cubic-bezier(.8,-0.6,0.2,1.5)', animations.style({ transform: 'scale(0.5)', opacity: 0, height: '0px', margin: '0px' }))
+                                ]),
                             ]),
-                            animations.transition(':leave', [
-                                animations.style({ transform: 'scale(1)', opacity: 1, height: '*' }),
-                                animations.animate('1s cubic-bezier(.8,-0.6,0.2,1.5)', animations.style({ transform: 'scale(0.5)', opacity: 0, height: '0px', margin: '0px' }))
+                            animations.trigger('positiveState', [
+                                animations.transition(':enter', [
+                                    animations.style({ 'backface-visibility': 'visible' }),
+                                    animations.animate('{{ timing }}s {{ delay }}s ease-in', animations.keyframes([
+                                        animations.style({
+                                            opacity: 0,
+                                            transform: 'perspective(400px) rotate3d({{ rotateX }}, {{ rotateY }}, 0, 90deg)',
+                                            offset: 0,
+                                        }),
+                                        animations.style({
+                                            opacity: 1,
+                                            transform: 'perspective(400px) rotate3d({{ rotateX }}, {{ rotateY }}, 0, -20deg)',
+                                            offset: 0.4,
+                                        }),
+                                        animations.style({
+                                            transform: 'perspective(400px) rotate3d({{ rotateX }}, {{ rotateY }}, 0, 10deg)',
+                                            offset: 0.6,
+                                        }),
+                                        animations.style({
+                                            transform: 'perspective(400px) rotate3d({{ rotateX }}, {{ rotateY }}, 0, -5deg)',
+                                            offset: 0.8,
+                                        }),
+                                        animations.style({
+                                            transform: 'perspective(400px) rotate3d(0, 0, 0, 0)',
+                                            offset: 1,
+                                        }),
+                                    ])),
+                                ], { params: { timing: 1, delay: 0, rotateX: 1, rotateY: 0 } }),
                             ]),
-                        ]),
-                        animations.trigger('positiveState', [
-                            animations.transition(':enter', [
-                                animations.style({ 'backface-visibility': 'visible' }),
-                                animations.animate('{{ timing }}s {{ delay }}s ease-in', animations.keyframes([
-                                    animations.style({
-                                        opacity: 0,
-                                        transform: 'perspective(400px) rotate3d({{ rotateX }}, {{ rotateY }}, 0, 90deg)',
-                                        offset: 0,
-                                    }),
-                                    animations.style({
-                                        opacity: 1,
-                                        transform: 'perspective(400px) rotate3d({{ rotateX }}, {{ rotateY }}, 0, -20deg)',
-                                        offset: 0.4,
-                                    }),
-                                    animations.style({
-                                        transform: 'perspective(400px) rotate3d({{ rotateX }}, {{ rotateY }}, 0, 10deg)',
-                                        offset: 0.6,
-                                    }),
-                                    animations.style({
-                                        transform: 'perspective(400px) rotate3d({{ rotateX }}, {{ rotateY }}, 0, -5deg)',
-                                        offset: 0.8,
-                                    }),
-                                    animations.style({
-                                        transform: 'perspective(400px) rotate3d(0, 0, 0, 0)',
-                                        offset: 1,
-                                    }),
-                                ])),
-                            ], { params: { timing: 1, delay: 0, rotateX: 1, rotateY: 0 } }),
-                        ]),
-                        animations.trigger('negativeState', [
-                            animations.transition(':enter', animations.useAnimation(shake)),
-                        ]),
-                    ],
-                    styles: ["mat-card{flex:1 1 0;flex-direction:row;place-content:stretch center}mat-card,mat-card mat-card-content{align-items:stretch;box-sizing:border-box;display:flex}mat-card mat-card-content{flex-direction:column;max-width:100%;place-content:stretch flex-start}mat-card mat-card-content mat-icon{margin-right:10px}mat-card mat-card-content .info-row{align-items:center;box-sizing:border-box;display:flex;flex-direction:row}"]
-                },] }
-    ];
-    MatPasswordStrengthInfoComponent.propDecorators = {
-        passComponent: [{ type: core.Input }],
-        enableScoreInfo: [{ type: core.Input }],
-        lowerCaseCriteriaMsg: [{ type: core.Input }],
-        upperCaseCriteriaMsg: [{ type: core.Input }],
-        digitsCriteriaMsg: [{ type: core.Input }],
-        specialCharsCriteriaMsg: [{ type: core.Input }],
-        customCharsCriteriaMsg: [{ type: core.Input }],
-        minCharsCriteriaMsg: [{ type: core.Input }],
-        matIconDone: [{ type: core.Input }],
-        matIconError: [{ type: core.Input }]
-    };
+                            animations.trigger('negativeState', [
+                                animations.transition(':enter', animations.useAnimation(shake)),
+                            ]),
+                        ],
+                    }]
+            }], null, { passComponent: [{
+                    type: i0.Input
+                }], enableScoreInfo: [{
+                    type: i0.Input
+                }], lowerCaseCriteriaMsg: [{
+                    type: i0.Input
+                }], upperCaseCriteriaMsg: [{
+                    type: i0.Input
+                }], digitsCriteriaMsg: [{
+                    type: i0.Input
+                }], specialCharsCriteriaMsg: [{
+                    type: i0.Input
+                }], customCharsCriteriaMsg: [{
+                    type: i0.Input
+                }], minCharsCriteriaMsg: [{
+                    type: i0.Input
+                }], matIconDone: [{
+                    type: i0.Input
+                }], matIconError: [{
+                    type: i0.Input
+                }] });
+    })();
 
     var MatPasswordStrengthModule = /** @class */ (function () {
         function MatPasswordStrengthModule() {
@@ -767,28 +1285,50 @@
         };
         return MatPasswordStrengthModule;
     }());
-    MatPasswordStrengthModule.decorators = [
-        { type: core.NgModule, args: [{
-                    imports: [
-                        common.CommonModule,
-                        progressBar.MatProgressBarModule,
-                        card.MatCardModule,
-                        icon.MatIconModule,
-                        core$1.MatRippleModule
-                    ],
-                    exports: [
-                        MatPasswordStrengthComponent,
-                        MatPasswordStrengthInfoComponent,
-                        MatPassToggleVisibilityComponent
-                    ],
-                    declarations: [
-                        MatPasswordStrengthComponent,
-                        MatPasswordStrengthInfoComponent,
-                        MatPassToggleVisibilityComponent
-                    ],
-                    entryComponents: [MatPassToggleVisibilityComponent]
-                },] }
-    ];
+    MatPasswordStrengthModule.ɵmod = i0.ɵɵdefineNgModule({ type: MatPasswordStrengthModule });
+    MatPasswordStrengthModule.ɵinj = i0.ɵɵdefineInjector({ factory: function MatPasswordStrengthModule_Factory(t) { return new (t || MatPasswordStrengthModule)(); }, imports: [[
+                i2$1.CommonModule,
+                i1$1.MatProgressBarModule,
+                i1$2.MatCardModule,
+                i2.MatIconModule,
+                i1.MatRippleModule
+            ]] });
+    (function () {
+        (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MatPasswordStrengthModule, { declarations: [MatPasswordStrengthComponent,
+                MatPasswordStrengthInfoComponent,
+                MatPassToggleVisibilityComponent], imports: [i2$1.CommonModule,
+                i1$1.MatProgressBarModule,
+                i1$2.MatCardModule,
+                i2.MatIconModule,
+                i1.MatRippleModule], exports: [MatPasswordStrengthComponent,
+                MatPasswordStrengthInfoComponent,
+                MatPassToggleVisibilityComponent] });
+    })();
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(MatPasswordStrengthModule, [{
+                type: i0.NgModule,
+                args: [{
+                        imports: [
+                            i2$1.CommonModule,
+                            i1$1.MatProgressBarModule,
+                            i1$2.MatCardModule,
+                            i2.MatIconModule,
+                            i1.MatRippleModule
+                        ],
+                        exports: [
+                            MatPasswordStrengthComponent,
+                            MatPasswordStrengthInfoComponent,
+                            MatPassToggleVisibilityComponent
+                        ],
+                        declarations: [
+                            MatPasswordStrengthComponent,
+                            MatPasswordStrengthInfoComponent,
+                            MatPassToggleVisibilityComponent
+                        ],
+                        entryComponents: [MatPassToggleVisibilityComponent]
+                    }]
+            }], null, null);
+    })();
 
     /*
      * Public API Surface of password-strength
@@ -808,7 +1348,6 @@
     exports.flipInX = flipInX;
     exports.flipInY = flipInY;
     exports.shake = shake;
-    exports.ɵa = shake;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

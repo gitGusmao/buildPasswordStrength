@@ -3,6 +3,7 @@ import { ControlValueAccessor, FormControl, ValidatorFn } from "@angular/forms";
 import { Criteria } from "../../enum";
 import { MatPasswordStrengthValidator } from "../../validator";
 import { ThemePalette } from "@angular/material/core";
+import * as i0 from "@angular/core";
 export declare class MatPasswordStrengthComponent implements OnInit, OnChanges, AfterContentChecked, ControlValueAccessor {
     pass: string;
     externalError: boolean;
@@ -51,4 +52,6 @@ export declare class MatPasswordStrengthComponent implements OnInit, OnChanges, 
     private _containAtLeastOneSpecialChar;
     private _containCustomChars;
     ngAfterContentChecked(): void;
+    static ɵfac: i0.ɵɵFactoryDef<MatPasswordStrengthComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<MatPasswordStrengthComponent, "mat-password-strength", ["matPasswordStrength"], { "pass": "pass"; "externalError": "externalError"; "enableLengthRule": "enableLengthRule"; "enableLowerCaseLetterRule": "enableLowerCaseLetterRule"; "enableUpperCaseLetterRule": "enableUpperCaseLetterRule"; "enableDigitRule": "enableDigitRule"; "enableSpecialCharRule": "enableSpecialCharRule"; "min": "min"; "max": "max"; "customValidator": "customValidator"; "warnThreshold": "warnThreshold"; "accentThreshold": "accentThreshold"; }, { "onStrengthChanged": "onStrengthChanged"; }, never, never>;
 }
